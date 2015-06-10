@@ -3,11 +3,12 @@
   fields:
 
   - dimension: event_id
-    primary_key: true
+    hidden: true
     type: int
     sql: ${TABLE}.event_id
 
   - dimension: amplitude_event_type
+    hidden: true
     sql: ${TABLE}.amplitude_event_type
 
   - dimension: amplitude_id
@@ -35,6 +36,7 @@
     sql: ${TABLE}.country
 
   - dimension: device_brand
+    hidden: true
     sql: ${TABLE}.device_brand
 
   - dimension: device_carrier
@@ -47,6 +49,7 @@
     sql: ${TABLE}.device_id
 
   - dimension: device_manufacturer
+    hidden: true
     sql: ${TABLE}.device_manufacturer
 
   - dimension: device_model
@@ -56,6 +59,7 @@
     sql: ${TABLE}.device_type
 
   - dimension: dma
+    hidden: true
     sql: ${TABLE}.dma
 
   - dimension: event_properties
@@ -74,6 +78,7 @@
     sql: ${TABLE}.first_event
 
   - dimension: ip_address
+    hidden: true
     sql: ${TABLE}.ip_address
 
   - dimension: language
@@ -81,11 +86,19 @@
 
   - dimension: location_lat
     type: number
+    hidden: true
     sql: ${TABLE}.location_lat
 
   - dimension: location_lng
     type: number
+    hidden: true
     sql: ${TABLE}.location_lng
+  
+  - dimension: store_location
+    type: location
+    hidden: true
+    sql_latitude: ${location_lat}
+    sql_longitude: ${location_lng}
 
   - dimension: merged_amplitude_id
     type: int
@@ -95,6 +108,7 @@
     sql: ${TABLE}.os_name
 
   - dimension: os_version
+    hidden: true
     sql: ${TABLE}.os_version
 
   - dimension: paying
@@ -128,7 +142,13 @@
 
   - dimension: session_id
     type: int
-    sql: ${TABLE}.session_id
+    sql: ${TABLE}.session_id || '-' || ${amplitude_id}
+  
+  - dimension: session_start
+    type: time
+    timeframes: [time, date, week, month]
+    datatype: epoch
+    sql: ${TABLE}.session_id/1000
 
   - dimension: start_version
     sql: ${TABLE}.start_version
@@ -145,6 +165,7 @@
     sql: ${TABLE}.user_properties
 
   - dimension: uuid
+    primary_key: true
     sql: ${TABLE}.uuid
 
   - dimension: version_name
@@ -153,7 +174,16 @@
   - measure: count
     type: count
     drill_fields: detail*
-
+  
+  - measure: count_sessions
+    type: count_distinct
+    sql: ${session_id}
+    drill_fields: [session_id, amplitude_id, count]
+  
+  - measure: count_users
+    type: count_distinct 
+    sql: ${amplitude_id}
+    drill_fields: [user_id, amplitude_id, count_sessions, count]
 
   # ----- Sets of fields for drilling ------
   sets:
@@ -161,43 +191,6 @@
     - event_id
     - version_name
     - os_name
-    - addfriend.count
-    - addtolist.count
-    - completedprofile.count
-    - createlist.count
-    - deletelist.count
-    - events131613_1163616.count
-    - events131613_1163617.count
-    - events131613_1163618.count
-    - events131613_1163619.count
-    - events131613_1163620.count
-    - events131613_1163621.count
-    - events131613_1163622.count
-    - events131613_1163623.count
-    - events131613_1163624.count
-    - events131613_1163625.count
-    - events131613_1163626.count
-    - events131613_1163627.count
-    - events131613_1163628.count
-    - events131613_1163629.count
-    - events131613_1163630.count
-    - events131613_1163631.count
-    - events131613_1163632.count
-    - events131613_1163633.count
-    - events131613_1163634.count
-    - events131613_universal.count
-    - favoritesong.count
-    - joincommunity.count
-    - mainlandingscreen.count
-    - playfromnotification.count
-    - playsong.count
-    - postcommunitycomment.count
-    - purchasesubscription.count
-    - receivepushnotification.count
-    - removefromlist.count
-    - searchsong.count
-    - sharesong.count
-    - subscriptionlandingscreen.count
-    - trialsubscription.count
-    - usersignedup.count
+    - amplitude_id
+    - session_id
 

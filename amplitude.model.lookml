@@ -6,7 +6,10 @@
 
 - explore: events
 
+- explore: sessions
+
 # - explore: addfriend
+
 #   joins:
 #     - join: events
 #       foreign_key: event_id

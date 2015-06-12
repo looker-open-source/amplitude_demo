@@ -184,6 +184,71 @@
     type: count_distinct 
     sql: ${amplitude_id}
     drill_fields: [user_id, amplitude_id, count_sessions, count]
+  
+  - filter: event1
+    suggest_dimension: event_type
+
+  - measure: event1_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event1 %} ${event_type} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+
+  - filter: event2
+    suggest_dimension: event_type
+
+  - measure: event2_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event2 %} ${event_type} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+      
+  - filter: event3
+    suggest_dimension: event_type
+
+  - measure: event3_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event3 %} ${event_type} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+      
+  - filter: event4
+    suggest_dimension: event_type
+
+  - measure: event4_session_count
+    type: number
+    sql: | 
+      COUNT(
+        DISTINCT(
+          CASE 
+            WHEN 
+            {% condition event4 %} ${event_type} {% endcondition %} 
+              THEN ${session_id}
+            ELSE NULL END 
+        )
+      )
+
 
   # ----- Sets of fields for drilling ------
   sets:

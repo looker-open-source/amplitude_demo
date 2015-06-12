@@ -10,6 +10,7 @@
             , count(*) as event_count
             , min(event_time) as session_start
             , max(event_time) as session_end
+            , rank() over (partition by amplitude_id order by session_id) as session_index
       from app131613.events
       
       group by 1,2,3
@@ -44,6 +45,14 @@
   - dimension: is_bounced_session
     type: yesno
     sql: ${event_count} = 1
+  
+  - dimension: session_index
+    type: int
+    sql: ${TABLE}.session_index
+  
+  - dimension: is_first_session
+    type: yesno
+    sql: ${session_index} = 1
 
   sets:
     detail:

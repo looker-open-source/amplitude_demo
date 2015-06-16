@@ -7,6 +7,9 @@
 - explore: events
 
 - explore: sessions
+  joins: 
+    - join: user_session_facts
+      foreign_key: amplitude_id
 
 # - explore: addfriend
 

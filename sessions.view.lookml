@@ -16,10 +16,9 @@
       group by 1,2,3
 
   fields:
-  - measure: count
-    type: count
-    drill_fields: detail*
-
+  
+  #### DIMENSIONS #####
+  
   - dimension: session_id
     type: number
     sql: ${TABLE}.session_id
@@ -53,6 +52,32 @@
   - dimension: is_first_session
     type: yesno
     sql: ${session_index} = 1
+  
+  - dimension: session_duration
+    type: number
+    sql: DATEDIFF(minutes, ${session_start_time}::timestamp, ${session_end_time}::timestamp)
+    decimals: 1
+    
+  #### MEASURES ####
+  
+  - measure: count
+    type: count
+    drill_fields: detail*
+  
+  - measure: user_count
+    type: count_distinct
+    sql: ${amplitude_id}
+    drill_fields: [amplitude_id, count]
+  
+  - measure: average_session_count_per_user
+    type: number
+    sql: ${count}::float/NULLIF(${user_count},0)
+    decimals: 1
+  
+  - measure: average_session_duration_minutes
+    type: average
+    sql: ${session_duration}
+    decimals: 1
 
   sets:
     detail:

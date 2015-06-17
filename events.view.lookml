@@ -33,7 +33,7 @@
     sql: ${TABLE}.client_upload_time
 
   - dimension: country
-    sql: ${TABLE}.country
+    sql: CASE WHEN ${TABLE}.country = 'United States' THEN 'United States of America' ELSE ${TABLE}.country END 
 
   - dimension: device_brand
     hidden: true

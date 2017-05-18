@@ -4,30 +4,30 @@
   tile_size: 100
 
   filters:
-  
+
   - name: date
     title: "Date"
     type: date_filter
     default_value: 90 days
-  
+
   - name: event_1
     type: field_filter
     explore: events
     field: events.event_type
     default_value: PlaySong
-  
+
   - name: event_2
     type: field_filter
     explore: events
     field: events.event_type
     default_value: AddToList
-  
+
   - name: event_3
     type: field_filter
     explore: events
     field: events.event_type
     default_value: ShareSong
-  
+
   - name: event_4
     type: field_filter
     explore: events
@@ -64,7 +64,7 @@
     font_size: small
     width: 3
     height: 2
-  
+
   - name: distinct_users
     title: Distinct Users
     type: single_value
@@ -93,7 +93,7 @@
     font_size: small
     width: 3
     height: 2
-  
+
   - name: avg_sessions_per_user
     title: Average Sessions per User
     type: single_value
@@ -122,7 +122,7 @@
     font_size: small
     width: 3
     height: 2
-  
+
   - name: avg_session_duration
     title: Average Session Duration (Minutes)
     type: single_value
@@ -151,7 +151,7 @@
     font_size: small
     width: 3
     height: 2
-  
+
   - name: daily_session_count_bounced
     title: Daily Session Count
     type: looker_area
@@ -190,7 +190,7 @@
     point_style: none
     interpolation: linear
     width: 8
-  
+
   - name: bounced_session_percentage
     title: Bounced Session Percentage
     type: looker_pie
@@ -226,7 +226,7 @@
       'No': slategray
       'Yes': orange
     width: 4
-  
+
   - name: daily_session_cnt_new
     title: Daily Session Count by New vs. Returning Users
     type: looker_area
@@ -266,7 +266,7 @@
     interpolation: linear
     width: 8
 
-  
+
   - name: new_user_percentage
     title: New User Percentage
     type: looker_pie
@@ -302,7 +302,7 @@
       'No': slategray
       'Yes': '#49719a'
     width: 4
-  
+
   - name: custom_funnel
     title: Custom Funnel
     type: looker_column
@@ -311,7 +311,7 @@
     measures: [events.event1_session_count, events.event2_session_count, events.event3_session_count,
       events.event4_session_count]
     listen:
-      date: sessions.session_start_date
+      date: events.event_date
       event_1: events.event1
       event_2: events.event2
       event_3: events.event3
@@ -337,7 +337,7 @@
     show_dropoff: true
     colors: [slategray, '#49719a', orange, '#6dc2a4']
     width: 12
-  
+
   - name: add_a_unique_name_580
     title: User Cohorts
     type: looker_area
@@ -372,7 +372,7 @@
     point_style: none
     interpolation: linear
     width: 12
-  
+
   - name: add_a_unique_name_592
     title: User Cohorts Table
     type: table
@@ -389,10 +389,3 @@
     column_limit: ''
     width: 12
     height: 3
-  
-  
-  
-
-
-
-

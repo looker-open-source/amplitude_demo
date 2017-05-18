@@ -4,12 +4,12 @@
   tile_size: 100
 
   filters:
-  
+
   - name: date
     title: "Date"
     type: date_filter
     default_value: 90 days
-  
+
   - name: event_type
     type: field_filter
     explore: events
@@ -23,7 +23,7 @@
     model: amplitude
     explore: events
     measures: [events.count]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.client_event_date desc, events.event_date desc, events.count desc]
@@ -46,7 +46,7 @@
     font_size: small
     width: 4
     height: 2
-  
+
   - name: add_a_unique_name_213
     title: Total Session Count
     type: single_value
@@ -55,7 +55,7 @@
     measures: [events.count_sessions]
     sorts: [events.client_event_date desc, events.event_date desc, events.count_sessions desc]
     limit: 500
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     column_limit: ''
@@ -76,7 +76,7 @@
     font_size: small
     width: 4
     height: 2
-  
+
   - name: add_a_unique_name_35
     title: Total User Count
     type: single_value
@@ -85,7 +85,7 @@
     measures: [events.count_users]
     sorts: [events.client_event_date desc, events.event_date desc, events.count_users desc]
     limit: 500
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     column_limit: ''
@@ -118,7 +118,7 @@
     measures: [events.count_users]
     sorts: [events.count_users desc]
     limit: 500
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     column_limit: ''
@@ -139,7 +139,7 @@
     width: 3
     height: 3
     colors: [slategray, '#49719a', orange, navy, '#6dc2a4', '#8d9bc9']
-  
+
   - name: add_a_unique_name_891
     title: User Carrier Breakdown
     type: looker_pie
@@ -147,7 +147,7 @@
     explore: events
     dimensions: [events.device_carrier]
     measures: [events.count_users]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.count_users desc]
@@ -170,7 +170,7 @@
     width: 3
     height: 3
     colors: [slategray, '#49719a', orange, navy, '#6dc2a4', '#8d9bc9']
-  
+
   - name: add_a_unique_name_62
     title: Users by Language
     type: looker_pie
@@ -178,7 +178,7 @@
     explore: events
     dimensions: [events.language]
     measures: [events.count_users]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.client_event_date desc, events.count_users desc]
@@ -209,7 +209,7 @@
     explore: events
     dimensions: [events.country]
     measures: [events.count_users]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.count_users desc]
@@ -236,7 +236,7 @@
     loading: false
     width: 3
     height: 3
-  
+
   - name: add_a_unique_name_39
     title: Daily Event Count by Version
     type: looker_line
@@ -245,7 +245,7 @@
     dimensions: [events.version_name, events.client_event_date]
     pivots: [events.version_name]
     measures: [events.count]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.client_event_date desc]
@@ -274,7 +274,7 @@
     point_style: none
     interpolation: linear
     colors: ['#49719a', orange, navy, '#6dc2a4', '#8d9bc9']
-  
+
   - name: add_a_unique_name_744
     title: Daily Event Count by Event Type
     type: looker_line
@@ -283,7 +283,7 @@
     dimensions: [events.event_type, events.event_date]
     pivots: [events.event_type]
     measures: [events.count]
-    listen: 
+    listen:
       date: events.event_date
       event_type: events.event_type
     sorts: [events.client_event_date desc, events.event_date desc]

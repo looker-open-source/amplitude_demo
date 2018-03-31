@@ -1,5 +1,5 @@
 view: events {
-  sql_table_name: app131613.events ;;
+  sql_table_name: app168342.events ;;
 
   dimension: event_id {
     hidden: yes

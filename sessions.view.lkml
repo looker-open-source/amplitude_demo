@@ -10,7 +10,7 @@ view: sessions {
       , min(event_time) as session_start
       , max(event_time) as session_end
       , rank() over (partition by amplitude_id order by session_id) as session_index
-from app131613.events
+from app168342.events
 
 group by 1,2,3
  ;;
